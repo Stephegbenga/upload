@@ -18,7 +18,7 @@ def test():
 def handle_webhook():
     data = request.get_json()
     print(data)
-    return "Hello"
+    # return "Hello"
 
 
 if __name__ == '__main__':
