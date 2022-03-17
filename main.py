@@ -1,4 +1,5 @@
 from flask import Flask, request, abort
+from pprint import pprint
 import hmac
 import hashlib
 import base64
@@ -17,7 +18,7 @@ def test():
 @app.route('/webhook', methods=['POST'])
 def handle_webhook():
     data = request.get_json()
-    print(data)
+    pprint(data)
     return "Hello"
 
 
