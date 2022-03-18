@@ -66,6 +66,7 @@ def ordercreation():
     products = []
     createaddress(data['shipping_address']['name'], data['shipping_address']['address1'], data['shipping_address']['countr_code'], data['shipping_address']['zip'], data['shipping_address']['city'], data['shipping_address']['pone'], data['email'])
     addressid = createaddress()
+    print(addressid)
     lineitems = data['line_items']
     for lineitem in lineitems:
         quantity = lineitem['quantity']
@@ -95,4 +96,4 @@ def ordercreation():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
