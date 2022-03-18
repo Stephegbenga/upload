@@ -11,9 +11,6 @@ user_name = config('user_name')
 password = config('password')
 shopkey = config('shopkey')
 
-print(user_name)
-print(password)
-
 app = Flask(__name__)
 
 variant_token = "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"
@@ -64,8 +61,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
 def ordercreation():
     data = request.get_json()
     products = []
-    createaddress(data['shipping_address']['name'], data['shipping_address']['address1'], data['shipping_address']['countr_code'], data['shipping_address']['zip'], data['shipping_address']['city'], data['shipping_address']['pone'], data['email'])
-    addressid = createaddress()
+    addressid = createaddress(data['shipping_address']['name'], data['shipping_address']['address1'], data['shipping_address']['country_code'], data['shipping_address']['zip'], data['shipping_address']['city'], data['shipping_address']['phone'], data['email'])
     print(addressid)
     lineitems = data['line_items']
     for lineitem in lineitems:
@@ -96,4 +92,4 @@ def ordercreation():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8080, debug=True)
