@@ -89,6 +89,7 @@ def ordercreation():
 
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response)
+    print(response.json())
     return "Sucess"
 
 
