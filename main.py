@@ -12,6 +12,7 @@ t = {'id': 820982911946154508, 'email': 'jon@doe.ca', 'closed_at': None, 'create
 
 @app.route('/test', methods=['GET'])
 def test():
+    pprint(json.dumps(t))
     return json.dumps(t)
 
 
