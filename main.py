@@ -10,7 +10,7 @@ t = {'id': 820982911946154508, 'email': 'jon@doe.ca', 'closed_at': None, 'create
 
 
 
-@app.route('/test', methods=['POST'])
+@app.route('/test', methods=['GET'])
 def test():
     return json.dumps(t)
 
