@@ -18,25 +18,6 @@ app = Flask(__name__)
 
 variant_token = "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"
 
-def createorder(customerid, products):
-    token = accesstoken().json()['access_token']
-    url = "https://api.malfini.com/api/v4/order"
-    payload = json.dumps({
-        "invoiceDeliveryTypeId": 3,
-        "addressId": 157441,
-        "deliveryId": 75,
-        "paymentId": 9,
-        "customOrderId": customerid,
-        "products": products
-    })
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload).json()
-    return response
-
 
 
 def accesstoken():
@@ -89,8 +70,26 @@ def ordercreation():
         sku = lineitem['sku']
         qusku = {"productSizeCode":sku, "count":quantity}
         products.append(qusku)
-    ordercode = createorder(data['id'], products)
-    print(ordercode)
+
+    token = accesstoken().json()['access_token']
+    url = "https://api.malfini.com/api/v4/order"
+    payload = json.dumps({
+        "invoiceDeliveryTypeId": 3,
+        "addressId": 157441,
+        "deliveryId": 75,
+        "paymentId": 9,
+        "customOrderId": data[id],
+        "products": products
+    })
+    headers = {
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload).json()
+    print(response)
+    return "Sucess"
+
 
 if __name__ == '__main__':
     app.run()
