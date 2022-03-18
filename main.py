@@ -62,8 +62,10 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
 
 @app.route('/ordercreate', methods=['POST'])
 def ordercreation():
-    products = []
     data = request.get_json()
+    products = []
+    createaddress(data['shipping_address']['name'], data['shipping_address']['address1'], data['shipping_address']['countr_code'], data['shipping_address']['zip'], data['shipping_address']['city'], data['shipping_address']['pone'], data['email'])
+    addressid = createaddress()
     lineitems = data['line_items']
     for lineitem in lineitems:
         quantity = lineitem['quantity']
@@ -76,10 +78,10 @@ def ordercreation():
     url = "https://api.malfini.com/api/v4/order"
     payload = json.dumps({
         "invoiceDeliveryTypeId": 3,
-        "addressId": 157441,
+        "addressId": int(addressid),
         "deliveryId": 75,
         "paymentId": 9,
-        "customOrderId": data['id'],
+        "customOrderId": f"{data['id']}",
         "products": products
     })
     headers = {
@@ -88,10 +90,9 @@ def ordercreation():
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(response)
     print(response.json())
-    return "Sucess"
+    return "Success"
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
