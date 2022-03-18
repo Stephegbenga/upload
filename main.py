@@ -72,6 +72,7 @@ def ordercreation():
         products.append(qusku)
 
     token = accesstoken().json()['access_token']
+    print(token)
     url = "https://api.malfini.com/api/v4/order"
     payload = json.dumps({
         "invoiceDeliveryTypeId": 3,
