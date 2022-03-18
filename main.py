@@ -78,7 +78,7 @@ def ordercreation():
         "addressId": 157441,
         "deliveryId": 75,
         "paymentId": 9,
-        "customOrderId": data[id],
+        "customOrderId": data['id'],
         "products": products
     })
     headers = {
