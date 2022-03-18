@@ -1,4 +1,4 @@
-from main import *
+from main import accesstoken
 
 def createorder(customerid, products):
     token = accesstoken().json()['access_token']
