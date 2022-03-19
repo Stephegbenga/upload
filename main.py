@@ -35,7 +35,7 @@ def accesstoken():
 def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
     token = accesstoken()
     url = "https://api.malfini.com/api/v4/address"
-    phonenumberprefix = phonenumbers.parse("100993393939", countrycode)
+    phonenumberprefix = phonenumbers.parse("100993393939", countrycode).country_code
     phonenumber = f'+{phonenumberprefix}-{phoneno}'
     payload = json.dumps({
         "name": name,
