@@ -60,6 +60,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
 @app.route('/ordercreate', methods=['POST'])
 def ordercreation():
     data = request.get_json()
+    print(data)
     products = []
     addressid = createaddress(data['shipping_address']['name'], data['shipping_address']['address1'], data['shipping_address']['country_code'], data['shipping_address']['zip'], data['shipping_address']['city'], data['shipping_address']['phone'], data['email'])
     print(addressid)
