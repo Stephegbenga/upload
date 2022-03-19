@@ -42,7 +42,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
         "recipient": name,
         "street": street, #"test_street"
         "countryCode": countrycode,#"DE"
-        "zipCode": zipcode, #"65929",
+        "zipCode": f"{zipcode}", #"65929",
         "city": city, #"test city 2",
         "phone": phonenumber, #"+1-8722717528",
         "email": email, #"testing01@xample.com",
