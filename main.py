@@ -48,7 +48,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
         "city": city, #"test city 2",
         "phone": phonenumber, #"+1-8722717528",
         "email": email, #"testing01@xample.com",
-        "invoiceDeliveryId": 3,
+        "invoiceDeliveryId": 2,
         "isValid": True
     })
     headers = {
