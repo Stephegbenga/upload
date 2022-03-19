@@ -53,6 +53,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
         'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
     }
+    print(payload)
     response = requests.request("POST", url, headers=headers, data=payload).json()
     print(response)
     return response['id']
