@@ -1,4 +1,5 @@
 from flask import Flask, request
+import phonenumbers
 from decouple import config
 from pprint import pprint
 import requests
@@ -34,7 +35,8 @@ def accesstoken():
 def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
     token = accesstoken()
     url = "https://api.malfini.com/api/v4/address"
-
+    phonenumberprefix = phonenumbers.parse("100993393939", countrycode)
+    phonenumber = f'+{phonenumberprefix}-{phoneno}'
     payload = json.dumps({
         "name": name,
         "recipient": name,
@@ -42,7 +44,7 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
         "countryCode": countrycode,#"DE"
         "zipCode": zipcode, #"65929",
         "city": city, #"test city 2",
-        "phone": phoneno, #"+1-8722717528",
+        "phone": phonenumber, #"+1-8722717528",
         "email": email, #"testing01@xample.com",
         "invoiceDeliveryId": 3,
         "isValid": True
