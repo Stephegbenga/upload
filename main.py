@@ -98,6 +98,7 @@ def ordercreation():
 
 @app.route('/tgbot')
 def tgwebhook():
+    print(request)
     data = request.get_json()
     print(data)
     return "success"
