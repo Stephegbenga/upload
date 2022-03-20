@@ -100,6 +100,7 @@ def ordercreation():
 def tgwebhook():
     data = request.get_json()
     print(data)
+    return "success"
 
 
 if __name__ == '__main__':
