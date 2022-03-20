@@ -96,6 +96,11 @@ def ordercreation():
     print(response.json())
     return "Success"
 
+@app.route('/5168649663:AAHe5Qq2wx4y3V_3MQ7ci3klc7ZKkTJ8kQM')
+def tgwebhook():
+    data = request.get_json()
+    print(data)
+
 
 if __name__ == '__main__':
     app.run()
