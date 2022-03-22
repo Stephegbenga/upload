@@ -60,6 +60,9 @@ def createaddress(name, street, countrycode, zipcode, city, phoneno, email):
     print(response)
     return response['id']
 
+@app.route('/')
+def homepage():
+    return "hello baseshirt"
 
 
 @app.route('/ordercreate', methods=['POST'])
@@ -96,13 +99,6 @@ def ordercreation():
     print(response.json())
     return "Success"
 
-@app.route('/tgbot')
-def tgwebhook():
-    print(request)
-    data = request.get_json()
-    print(data)
-    return "success"
-
 
 if __name__ == '__main__':
-    app.run(port=80)
+    app.run(port=8080)
