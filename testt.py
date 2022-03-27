@@ -1,3 +1,5 @@
+from flask import Flask
+app = Flask(__name__)
 import requests
 from time import sleep
 import json
@@ -238,7 +240,9 @@ def alertme():
 
     print(response.json())
 
-
+@app.route('/start')
+def start():
+    return "Hello Starting"## this is working fine
 product = {}
 product['options'] = {}
 variantmainname = ""
@@ -275,3 +279,9 @@ alertme()
 
 
 
+@app.route('/')
+def homepage():
+    return "Hello Steve"
+
+if __name__ == '__main__':
+    app.run()
