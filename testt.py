@@ -1,6 +1,4 @@
-from pprint import pprint
-from flask import Flask, request
-import sys, os
+from flask import Flask
 app = Flask(__name__)
 import requests
 from time import sleep
@@ -165,22 +163,7 @@ def uploadimage(image_link, product_id):
 
 
 
-## this is working fine
-product = {}
-product['options'] = {}
-variantmainname = ""
-variantBody = {}
-variantBodyenclose = []
-variant_prop = []
 
-
-url = "https://api.malfini.com/api/v4/product"
-tokenn = token()
-payload={}
-headers = {
-  'Authorization': f'Bearer {tokenn}'
-}
-tttt = requests.request("GET", url, headers=headers, data=payload).json()
 
 
 def getinventorydata(inventory_item_id):
@@ -259,7 +242,23 @@ def alertme():
 
 @app.route('/start')
 def start():
-    return "Hello Starting"
+    return "Hello Starting"## this is working fine
+product = {}
+product['options'] = {}
+variantmainname = ""
+variantBody = {}
+variantBodyenclose = []
+variant_prop = []
+
+
+url = "https://api.malfini.com/api/v4/product"
+tokenn = token()
+payload={}
+headers = {
+  'Authorization': f'Bearer {tokenn}'
+}
+tttt = requests.request("GET", url, headers=headers, data=payload).json()
+
 for x in tttt:
     product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
     if x['subtitle'] == None:
