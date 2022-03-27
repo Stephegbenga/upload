@@ -257,7 +257,9 @@ def alertme():
 
     print(response.json())
 
-
+@app.route('/start')
+def start():
+    return "Hello Starting"
 for x in tttt:
     product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
     if x['subtitle'] == None:
