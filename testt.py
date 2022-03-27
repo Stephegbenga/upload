@@ -19,7 +19,7 @@ def token():
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        print(response)
+        # print(response)
         token = response['access_token']
         return token
     except:
@@ -35,7 +35,7 @@ def token():
         }
 
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        print(response)
+        # print(response)
         token = response['access_token']
         return token
 
@@ -80,9 +80,9 @@ def uploadproducts(product):
         'Content-Type': 'application/json'
     }
     responses = requests.request("POST", url, headers=headers, data=payload).json()
-    pprint(responses)
+    # pprint(responses)
     productdetails = {"product_id":responses['product']['id'], "code":product['code']}
-    print(productdetails)
+    # print(productdetails)
     return (productdetails)
 
 
@@ -133,7 +133,7 @@ def uploadvariant(productdetails):
                 image_link = variant['images'][0]['link']
                 image_id = uploadimage(image_link, productdetails['product_id'])
                 for variantss in variant['nomenclatures']:
-                    print(f"This is Variant {variantss}")
+                    # print(f"This is Variant {variantss}")
                     variantBody['option1'] = f"{variant['name']} {variantss['sizeName']}"
                     variantBody['weight'] = variantss['grossWeight']
                     variantBody['sku'] = variantss['productSizeCode']
@@ -157,7 +157,7 @@ def uploadimage(image_link, product_id):
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data=payload).json()
-    print(response)
+    # print(response)
     return response['image']['id']
 
 
@@ -191,7 +191,7 @@ def getinventorydata(inventory_item_id):
         'X-Shopify-Access-Token': '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'
     }
     response = requests.request("GET", url, headers=headers, data=payload).json()
-    print(response)
+    # print(response)
     return response['location_id']
 
 
@@ -208,7 +208,7 @@ def setinventoryquantity(inventory_item_id, location_id, quantity):
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data=payload).json()
-    print(response)
+    # print(response)
     return response
 
 def getavailabilities(productSizeCode):
@@ -219,7 +219,7 @@ def getavailabilities(productSizeCode):
       'Authorization': f'Bearer {tokenn}'
     }
     responses = requests.request("GET", url, headers=headers, data=payload).json()
-    print(responses)
+    # print(responses)
     for response in responses:
         if response['productSizeCode'] == productSizeCode:
             return response['quantity']
@@ -232,12 +232,12 @@ def getallshopifyproductandupdatequantity():
         'X-Shopify-Access-Token': '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'
     }
     responses = requests.request("GET", url, headers=headers, data=payload).json()
-    print(responses)
+    # print(responses)
     for response in responses['products']:
-        os.system('clear')
         for variants in response['variants']:
             inventory_item_id = variants['inventory_item_id']
             productSizeCode = variants['sku']
+            print(productSizeCode)
             if productSizeCode == None:
                 print("The Sku is Empty")
             else:
@@ -259,7 +259,6 @@ def alertme():
 
 
 for x in tttt:
-    os.system('clear')
     product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
     if x['subtitle'] == None:
         product['title'] = x['name']
@@ -269,7 +268,7 @@ for x in tttt:
     product['code'] = x['code']
     product['options']['name'] = "Farbe"
     product['type'] = x['type']
-    pprint(product)
+    # pprint(product)
     resu = uploadproducts(product)
     uploadvariant(resu)
 
