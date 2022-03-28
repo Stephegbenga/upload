@@ -1,1 +1,1 @@
-web: gunicorn testt:app
+worker: python testt.py

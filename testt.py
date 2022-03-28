@@ -1,5 +1,5 @@
-from flask import Flask
-app = Flask(__name__)
+from rq import Worker, Queue
+import os
 import requests
 from time import sleep
 import json
@@ -36,37 +36,6 @@ def token():
         # print(response)
         token = response['access_token']
         return token
-
-
-tp = {
-        "product": {
-            "title": "Burton Cust 151",
-            "body_html": "This a nice cloth",
-            "vendor": "Malfini",
-            "product_type": "T SHirts",
-            "options": {
-                "name": "Sizes and Color"
-            },
-            "variants": [
-                {
-                    "sku": "778282100292",
-                    "option1": "weiss",
-                    "name": "weiss",
-                    "weight": 5,
-                    "compare_at_price": 10,
-                    "price": 5
-                },
-                {
-                    "sku": "7782828292",
-                    "option1": "weiss",
-                    "name": "weiss"
-                }
-            ]
-        }
-    }
-
-# Using the Image Id use it to Upload image for Variants
-
 
 
 def uploadproducts(product):
@@ -218,8 +187,8 @@ def getallshopifyproductandupdatequantity():
     # print(responses)
     for response in responses['products']:
         for variants in response['variants']:
-            inventory_item_id = variants['inventory_item_id']
             productSizeCode = variants['sku']
+            inventory_item_id = variants['inventory_item_id']
             print(productSizeCode)
             if productSizeCode == None:
                 print("The Sku is Empty")
@@ -240,9 +209,7 @@ def alertme():
 
     print(response.json())
 
-@app.route('/start')
-def start():
-    return "Hello Starting"## this is working fine
+
 product = {}
 product['options'] = {}
 variantmainname = ""
@@ -260,28 +227,24 @@ headers = {
 tttt = requests.request("GET", url, headers=headers, data=payload).json()
 
 for x in tttt:
-    product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
-    if x['subtitle'] == None:
-        product['title'] = x['name']
-    else:
-        product['title'] = f"{x['name']} {x['subtitle']}"
-    product['vendor'] = "malfini"
-    product['code'] = x['code']
-    product['options']['name'] = "Farbe"
-    product['type'] = x['type']
-    # pprint(product)
-    resu = uploadproducts(product)
-    uploadvariant(resu)
+    for allvariants in x:
+        os.system('clear')
+        product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
+        if x['subtitle'] == None:
+            product['title'] = x['name']
+        else:
+            product['title'] = f"{x['name']} {x['subtitle']}"
+        product['vendor'] = "malfini"
+        product['code'] = x['code']
+        product['options']['name'] = "Farbe"
+        product['type'] = x['type']
+        # pprint(product)
+        resu = uploadproducts(product)
+        uploadvariant(resu)
 
 getallshopifyproductandupdatequantity()
-
 alertme()
 
-
-
-@app.route('/')
-def homepage():
-    return "Hello Steve"
-
 if __name__ == '__main__':
-    app.run()
+    worker = Worker(Queue)
+    worker.work()
