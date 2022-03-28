@@ -232,13 +232,13 @@ for x in tttt:
         product['title'] = x['name']
     else:
         product['title'] = f"{x['name']} {x['subtitle']}"
-        product['vendor'] = "malfini"
-        product['code'] = x['code']
-        product['options']['name'] = "Farbe"
-        product['type'] = x['type']
-        # pprint(product)
-        resu = uploadproducts(product)
-        uploadvariant(resu)
+    product['vendor'] = "malfini"
+    product['code'] = x['code']
+    product['options']['name'] = "Farbe"
+    product['type'] = x['type']
+    # pprint(product)
+    resu = uploadproducts(product)
+    uploadvariant(resu)
 
 getallshopifyproductandupdatequantity()
 alertme()
