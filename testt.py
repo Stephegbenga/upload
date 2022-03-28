@@ -227,20 +227,19 @@ headers = {
 tttt = requests.request("GET", url, headers=headers, data=payload).json()
 
 for x in tttt:
-    for allvariants in x:
-        os.system('clear')
-        product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
-        if x['subtitle'] == None:
-            product['title'] = x['name']
-        else:
-            product['title'] = f"{x['name']} {x['subtitle']}"
-        product['vendor'] = "malfini"
-        product['code'] = x['code']
-        product['options']['name'] = "Farbe"
-        product['type'] = x['type']
-        # pprint(product)
-        resu = uploadproducts(product)
-        uploadvariant(resu)
+    os.system('clear')
+    product['body_html'] = f"<ul><li>{x['specification']}</li>\n<li>{x['description']}</li></ul>"
+    if x['subtitle'] == None:
+        product['title'] = x['name']
+    else:
+        product['title'] = f"{x['name']} {x['subtitle']}"
+    product['vendor'] = "malfini"
+    product['code'] = x['code']
+    product['options']['name'] = "Farbe"
+    product['type'] = x['type']
+    # pprint(product)
+    resu = uploadproducts(product)
+    uploadvariant(resu)
 
 getallshopifyproductandupdatequantity()
 alertme()
